@@ -1,0 +1,30 @@
+{
+    "name": "mathiconical/php-bnc",
+    "description": "Integração BNC",
+    "type": "library",
+    "require": {
+        "php": ">=7.1",
+        "guzzlehttp/guzzle": "~7"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mathiconical\\PhpBnc\\": "src/",
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "José Maria",
+            "email": "netinho340@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "php": ">=7.1",
+        "phpunit/phpunit": "10.0.x-dev"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
