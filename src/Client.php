@@ -68,11 +68,17 @@ class Client
     {
         $this->apiKey = $apiKey;
 
-        $options = ['base_uri' => self::BASE_URI[$target]];
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->apiKey,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
 
         if (!is_null($extras)) {
-            $options = array_merge($options, $extras);
+            $headers = array_merge($headers, $extras);
         }
+
+        $options = ['base_uri' => self::BASE_URI[$target], 'headers' => $headers];
 
         $this->http = new HttpClient($options);
 
@@ -86,23 +92,18 @@ class Client
     /**
      * @param string $method
      * @param string $uri
-     * @param array $options
+     * @param array $uri_params
      * @throws \Exception
      * @return \ArrayObject
      */
-    public function request(string $method, string $uri, array $options = [], string $json_string = '')
+    public function request(string $method, string $uri, array $uri_params = [], string $json_string = '')
     {
         try {
             $response = $this->http->request(
                 $method,
-                $uri . $this->arrayToUriParam($options),
+                $uri . $this->arrayToUriParam($uri_params),
                 [
                     'body' => $json_string,
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . $this->apiKey,
-                        'Content-Type' => 'application/json',
-                        'Accept' => 'application/json',
-                    ]
                 ]
             );
 
@@ -117,16 +118,16 @@ class Client
     /**
      * Converte array associativo em parametros para URI.
      * ['postId' => 1, 'userId' => 2] -> ?postId=1&?userId=2
-     * @param array $options
+     * @param array $params
      * @return string|void
      */
-    public function arrayToUriParam(array $options = [])
+    public function arrayToUriParam(array $params = [])
     {
-        if (!count($options)) {
+        if (!count($params)) {
             return '';
         }
 
-        $flattened = $options;
+        $flattened = $params;
         array_walk($flattened, function (&$value, $key) {
             $value = "?{$key}={$value}";
         });

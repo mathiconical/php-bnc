@@ -7,19 +7,19 @@ use Mathiconical\PhpBnc\Endpoints\Endpoint;
 class SaveProcess extends Endpoint
 {
     /**
-     * @param array $options
+     * @param array $params
      * @param array $body
      * @throws \Exception
      * @return \ArrayObject
      */
-    public function save(array $options = [], array $body = [])
+    public function save(array $params = [], array $body = [])
     {
         $json_body_string = json_encode($body);
 
         return $this->client->request(
             self::POST,
             self::ROUTES['saveProcess'],
-            $options,
+            $params,
             $json_body_string ?? ''
         );
     }
