@@ -93,7 +93,8 @@ class Client
      * @param string $method
      * @param string $uri
      * @param array $uri_params
-     * @throws \Exception
+     * @throws Exception
+     * @throws ClientException
      * @return \ArrayObject
      */
     public function request(string $method, string $uri, array $uri_params = [], string $json_string = '')
@@ -176,7 +177,7 @@ class Client
     }
 
     /**
-     * @return GetProcessGuid
+     * @return GetProcessResult
      */
     public function getProcessResult()
     {
