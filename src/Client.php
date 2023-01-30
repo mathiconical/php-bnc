@@ -179,6 +179,6 @@ class Client
      */
     public function getProcessResult()
     {
-        return $this->getProcessResult();
+        return $this->getProcessResult;
     }
 }
